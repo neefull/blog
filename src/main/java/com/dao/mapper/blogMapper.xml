@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	namespace：必须与对应的接口全类名一致
+	id:必须与对应接口的某个对应的方法名一致
+	
+ -->
+<mapper namespace="com.dao.mapper.BlogMapper">
+	
+	<insert id="save" parameterType="Blog">
+		insert into t_blog(t_title,t_text,t_img,t_type) values(#{title},#{text},${img},${type})
+	</insert>
+	
+	<update id="update" parameterType="Blog">
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		delete from t_blog where t_index=#{index}
+	</delete>
+	
+	<select id="findById" parameterType="Blog" resultType="Blog">
+		select t_type as type, t_title as title,t_text as text, t_img as img from t_blog  where t_index=${indexId}
+	</select>
+	
+	<select id="findAll" resultType="Blog">
+		select t_type as type, t_index as indexId, t_title as title,t_text as text, t_img as img from t_blog
+	</select>
+	
+	<select id="findAllByType" parameterType="Blog" resultType="Blog">
+		select t_index as indexId, t_title as title,t_text as text, t_img as img from t_blog where t_type=${type}
+	</select>
+	
+	<select id="page" parameterType="com.bean.PageBean" resultType="Blog">
+		<![CDATA[select t_type as type, t_index as indexId, t_title as title,t_text as text, t_img as img 
+		from t_blog limit ${start},${end}]]> 
+	</select>
+	
+	
+</mapper>
